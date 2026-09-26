@@ -1,0 +1,73 @@
+name: PACAR site update
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/workflows/pacar-site-update.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-site:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply responsive and social updates
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          css = '''
+          /* PACAR responsive hardening */
+          html, body { max-width: 100%; overflow-x: hidden; }
+          img, svg, video { max-width: 100%; height: auto; }
+          h1, h2, h3, h4, p, a, span, button { overflow-wrap: anywhere; word-break: normal; }
+          .section-head h2, .hero h1, .service h3, .projectbody h3, .contactpanel h3 { max-width: 100%; }
+          .social-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+          .social-links a { display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border:1px solid rgba(255,255,255,.22); border-radius:7px; color:#fff; font-size:12px; font-weight:800; text-transform:uppercase; }
+          .social-links a:hover { background:rgba(255,255,255,.1); }
+          @media(max-width:600px){
+            .container { width:min(100% - 32px,1160px); }
+            .hero h1 { font-size:clamp(32px,9vw,39px); line-height:1.05; }
+            .section-head h2 { font-size:clamp(27px,8vw,36px); }
+            .service h3, .projectbody h3 { font-size:16px; }
+            .contactpanel h3 { font-size:24px; }
+            .btn { max-width:100%; }
+            .social-links a { flex:1 1 auto; }
+          }
+          '''
+          if '/* PACAR responsive hardening */' not in s:
+              s = s.replace('</style>', css + '\n  </style>', 1)
+
+          social = '''
+          <div class="social-links" aria-label="Redes sociales de PACAR">
+            <a href="https://www.instagram.com/pacarconstructores" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.tiktok.com/@pacar2026" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="https://web.facebook.com/profile.php?id=61580732452237" target="_blank" rel="noopener noreferrer">Facebook</a>
+          </div>
+          '''
+          if 'aria-label="Redes sociales de PACAR"' not in s:
+              marker = '</footer>'
+              if marker in s:
+                  s = s.replace(marker, social + '\n' + marker, 1)
+              else:
+                  raise SystemExit('No se encontró el cierre del footer')
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit site update
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Fix mobile layout and connect PACAR social networks'
+          git push
