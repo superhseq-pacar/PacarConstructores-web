@@ -3,8 +3,6 @@ name: PACAR site update
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - '.github/workflows/pacar-site-update.yml'
 
 permissions:
   contents: write
