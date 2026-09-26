@@ -37,6 +37,25 @@
     footer{background:#16283f;color:#cbd6e2;padding:32px 0}.footerrow{display:flex;justify-content:space-between;gap:25px;align-items:center}.footerbrand{display:flex;align-items:center;gap:14px}.footerbrand img{width:58px;background:#fff;border-radius:8px}.footerbrand strong{color:#fff}.copyright{font-size:11px;text-align:right}
     @media(max-width:900px){.navlinks{display:none;position:absolute;top:70px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:18px 4%;flex-direction:column;align-items:stretch;gap:8px;box-shadow:0 10px 22px rgba(35,58,93,.08)}.navlinks.open{display:flex}.navlinks a{padding:10px 12px}.menu{display:block}.hero{min-height:auto;padding:75px 0}.hero:after{display:none}.hero .container{grid-template-columns:1fr}.hero-card{justify-self:start}.aboutgrid,.contactgrid,.projectgrid{grid-template-columns:1fr}.servicegrid,.diffgrid{grid-template-columns:1fr 1fr}}
     @media(max-width:600px){section{padding:65px 0}.nav{height:70px}.brand img{height:50px}.servicegrid,.diffgrid{grid-template-columns:1fr}.hero h1{font-size:39px}.hero p{font-size:16px}.footerrow{flex-direction:column;align-items:flex-start}.copyright{text-align:left}}
+  
+/* PACAR responsive hardening */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, svg, video { max-width: 100%; height: auto; }
+h1, h2, h3, h4, p, a, span, button { overflow-wrap: anywhere; word-break: normal; }
+.section-head h2, .hero h1, .service h3, .projectbody h3, .contactpanel h3 { max-width: 100%; }
+.social-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+.social-links a { display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border:1px solid rgba(255,255,255,.22); border-radius:7px; color:#fff; font-size:12px; font-weight:800; text-transform:uppercase; }
+.social-links a:hover { background:rgba(255,255,255,.1); }
+@media(max-width:600px){
+  .container { width:min(100% - 32px,1160px); }
+  .hero h1 { font-size:clamp(32px,9vw,39px); line-height:1.05; }
+  .section-head h2 { font-size:clamp(27px,8vw,36px); }
+  .service h3, .projectbody h3 { font-size:16px; }
+  .contactpanel h3 { font-size:24px; }
+  .btn { max-width:100%; }
+  .social-links a { flex:1 1 auto; }
+}
+
   </style>
 </head>
 <body>
@@ -49,7 +68,14 @@
 <section class="projects" id="proyectos"><div class="container"><div class="section-head"><div class="kicker">Trabajo real</div><h2>Proyectos que muestran el proceso y el resultado.</h2><p>Registro fotográfico de trabajos reales para mostrar la ejecución, los acabados y la transformación de los espacios.</p></div><div class="projectgrid"><article class="project"><img src="resultado-area.jpeg" alt="Espacio interior intervenido por PACAR"><div class="projectbody"><h3>Adecuación y pintura de espacios interiores</h3><p>Registro de preparación de superficies, aplicación de pintura, adecuaciones y acabados interiores.</p></div></article><div class="projectcol"><article class="project small"><img src="proceso-mezcla-pintura.jpeg" alt="Preparación de pintura en obra"><div class="projectbody"><h3>Proceso de ejecución</h3><p>Preparación y aplicación de materiales durante la intervención.</p></div></article><article class="project small"><img src="area-terminada.jpeg" alt="Área interior terminada"><div class="projectbody"><h3>Resultado final</h3><p>Espacio terminado y preparado para su uso.</p></div></article></div></div><div style="margin-top:18px" class="projectgrid"><article class="project small"><img src="aplicacion-pintura.jpeg" alt="Aplicación de pintura en muro"><div class="projectbody"><h3>Aplicación y acabados</h3><p>Trabajo directo sobre superficies interiores.</p></div></article><article class="project small"><img src="demarcacion-final.jpeg" alt="Área terminada con demarcación amarilla"><div class="projectbody"><h3>Espacio terminado</h3><p>Acabados finales y demarcación del área intervenida.</p></div></article></div></div></section>
 <section class="contact" id="contacto"><div class="container"><div class="section-head"><div class="kicker">Contacto</div><h2>Cuéntenos qué necesita intervenir.</h2><p>El objetivo de esta sección es convertir visitas en conversaciones comerciales.</p></div><div class="contactgrid"><div class="contactpanel"><h3>Hablemos de su proyecto.</h3><p>Atendemos solicitudes de información para trabajos de mantenimiento, remodelación y adecuación en Bogotá y Sabana.</p><div class="contactitems"><a class="contactitem" href="https://wa.me/573203909385" target="_blank" rel="noopener"><small>WhatsApp</small><strong>320 390 9385</strong></a><a class="contactitem" href="mailto:contacto@pacarconstructores.com"><small>Correo</small><strong>contacto@pacarconstructores.com</strong></a><div class="contactitem"><small>Área de operación</small><strong>Bogotá y Sabana</strong></div><div class="contactitem"><small>Sitio web</small><strong>pacarconstructores.com</strong></div></div><a class="btn btn-primary" href="https://wa.me/573203909385" target="_blank" rel="noopener">Solicitar información</a></div><div class="form"><h3>Enviar solicitud</h3><p style="margin-top:0">Para una respuesta más directa, escríbanos por WhatsApp. También puede usar el correo corporativo para enviar planos, fotografías o alcances.</p><div class="actions" style="margin-top:18px"><a class="btn btn-primary" href="https://wa.me/573203909385" target="_blank" rel="noopener">Solicitar por WhatsApp</a><a class="btn btn-secondary" href="mailto:contacto@pacarconstructores.com?subject=Solicitud%20de%20informaci%C3%B3n%20PACAR">Enviar correo</a></div><div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line);font-size:13px"><strong style="color:var(--blue)">Sugerencia:</strong> incluya tipo de trabajo, ciudad/municipio, alcance aproximado y fotografías del espacio.</div></div></div></div></section>
 </main>
-<footer><div class="container footerrow"><div class="footerbrand"><img src="logo-pacar.png" alt="PACAR"><div><strong>PACAR CONSTRUCTORES S.A.S.</strong><div>Calidad · Capacidad técnica · Seguridad</div></div></div><div class="copyright">© 2026 PACAR CONSTRUCTORES S.A.S.<br>Bogotá y Sabana</div></div></footer>
+<footer><div class="container footerrow"><div class="footerbrand"><img src="logo-pacar.png" alt="PACAR"><div><strong>PACAR CONSTRUCTORES S.A.S.</strong><div>Calidad · Capacidad técnica · Seguridad</div></div></div><div class="copyright">© 2026 PACAR CONSTRUCTORES S.A.S.<br>Bogotá y Sabana</div></div>
+<div class="social-links" aria-label="Redes sociales de PACAR">
+  <a href="https://www.instagram.com/pacarconstructores" target="_blank" rel="noopener noreferrer">Instagram</a>
+  <a href="https://www.tiktok.com/@pacar2026" target="_blank" rel="noopener noreferrer">TikTok</a>
+  <a href="https://web.facebook.com/profile.php?id=61580732452237" target="_blank" rel="noopener noreferrer">Facebook</a>
+</div>
+
+</footer>
 <script>
 const menuBtn=document.getElementById('menuBtn'),nav=document.getElementById('navlinks');
 menuBtn?.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open));menuBtn.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú')});
