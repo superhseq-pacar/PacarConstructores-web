@@ -1,0 +1,41 @@
+name: Refine hero title
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Adjust infrastructure title sizing
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          old = '@media(max-width:600px){ .hero h1 span { white-space: nowrap; } }'
+          new = '''/* PACAR mobile title refinement */
+          .hero h1 span { font-size:clamp(0.82em,4.4vw,58px); white-space:nowrap; }
+          @media(max-width:600px){ .hero h1 span { font-size:clamp(30px,8vw,34px); white-space:nowrap; } }'''
+          if old in s:
+              s = s.replace(old, new)
+          elif '.hero h1 span { font-size:clamp(0.82em,4.4vw,58px);' not in s:
+              marker = '</style>'
+              s = s.replace(marker, '/* PACAR hero title fit */\n.hero h1 span { font-size:clamp(0.82em,4.4vw,58px); white-space:nowrap; }\n@media(max-width:600px){ .hero h1 span { font-size:clamp(30px,8vw,34px); white-space:nowrap; } }\n  ' + marker, 1)
+          p.write_text(s, encoding='utf-8')
+
+      - name: Commit change
+        run: |
+          git config user.name "PACAR Web Automation"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Ajusta titulo de infraestructura en hero"
+          git push
